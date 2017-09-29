@@ -1,0 +1,7 @@
+# python jit files
+*.py[cob]
+__pycache__/
+
+# vim tmp & swap
+*~
+*.swp
