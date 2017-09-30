@@ -1,12 +1,19 @@
 """pypicoboard
 
-A library for using the PicoBoard in Python instead of Scratch.
+Python library for using the Scratch PicoBoard.  Scratch has built in support
+for the PicoBoard.  more information about the PicoBoard may be found here:
 
-Python2 and Python3 compatible.
+    https://wiki.scratch.mit.edu/wiki/PicoBoard
 
-Reference:  https://wiki.scratch.mit.edu/wiki/PicoBoard
+Project page:
 
-github.com/drewarnett/pypicoboard
+    https://github.com/drewarnett/pypicoboard
+
+Note:  this library Python2 and Python3 compatible.
+
+Prerequisites:
+
+* pyserial
 """
 
 from __future__ import print_function
