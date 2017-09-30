@@ -101,5 +101,3 @@ class PicoBoard(object):
             channel, value = readchannel()
             rval[_CHANNEL_NAMES_PER_CHANNEL[channel]] = value
         return rval
-
-# vim:  ts=4 sw=4 expandtab
