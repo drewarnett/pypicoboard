@@ -39,6 +39,8 @@ _CHANNEL_NUMBERS_PER_NAME = {
 _CHANNEL_NAMES_PER_CHANNEL = {
     value: key for key, value in _CHANNEL_NUMBERS_PER_NAME.items()}
 
+_ID_CHANNEL_RESPONSE = (15, 4)
+
 CHANNEL_NAMES = tuple(sorted(_CHANNEL_NUMBERS_PER_NAME.keys()))
 
 
@@ -80,12 +82,15 @@ class PicoBoard(object):
         """
 
         def readchannel():
-            """read and parse once channel worth of response data"""
+            """read and parse once channel worth of response data
+
+            returns (channel, value)
+            """
 
             data = self._interface.read(2)
             upper_byte, lower_byte = struct.unpack('>BB', data)
-            assert (upper_byte >> 7) & 1 == 1
-            assert (lower_byte >> 7) & 1 == 0
+            assert (upper_byte >> 7) & 1 == 1, (upper_byte, lower_byte)
+            assert (lower_byte >> 7) & 1 == 0, (upper_byte, lower_byte)
             channel = (upper_byte >> 3) & 0xf
             value = ((upper_byte & 0x7) << 7) | ((lower_byte & 0x7f) << 0)
             return (channel, value)
@@ -93,7 +98,8 @@ class PicoBoard(object):
         self._interface.flushInput()
         self._interface.write(struct.pack('B', _SCRATCH_DATA_REQUEST))
 
-        assert readchannel() == (15, 4)
+        id_channel_response = readchannel()
+        assert id_channel_response == _ID_CHANNEL_RESPONSE, id_channel_response
 
         rval = dict()
 
