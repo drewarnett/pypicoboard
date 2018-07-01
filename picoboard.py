@@ -64,6 +64,7 @@ class PicoBoard(object):
         """
 
         self._interface = serial.Serial(serial_port, 38400, timeout=0.1)
+        self._interface.flushInput()
 
     def read(self):
         """reads the PicoBoard sensors once and returns a readings dictionary
